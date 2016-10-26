@@ -48,7 +48,7 @@ function eachLayer(layer) {
         layer.bindPopup("label - " + feature.properties.label);
     }
 }
-var points = omnivore.csv('data.csv', {
+var points = omnivore.csv('map-cluster-data.csv', {
     icon: L.mapbox.marker.icon({
         'marker-symbol': 'airport',
         'marker-color': '59245f'
