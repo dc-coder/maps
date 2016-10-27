@@ -19,5 +19,6 @@ Here is an overview of the project files and their descriptions.
 Data Transformations
 ------------------------
 map-cluster-data.csv: places.csv, filter data by longitude and remove blanks.
+
 heat-map-data.geojson: upload data to mapbox, re-download as geojson formated for mapbox.
 
