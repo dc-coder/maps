@@ -10,8 +10,6 @@ Here is an overview of the project files and their descriptions.
     |- README            		# This readme
     |- map-cluster.html  		# Simple clustering of all the data
     |- map-cluster-data.csv     # Data used in map-cluster.html
-    |- places-merge.csv 		# Merging Geolocation with comp
-    |- rows-with-geolocation.R 	# Generating map-cluster-data.csv
     |- heat-map.html 			# Heat map that uses count of points, colors and circle blur
     |- heat-map-data.geojson 	# The data for heatmap, can be cleaned up.
 
