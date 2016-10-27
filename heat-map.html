@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.26.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<div id='map'></div>
+
+<script>
+
+mapboxgl.accessToken = 'pk.eyJ1IjoibWlyZWlsbGVyYWFkIiwiYSI6ImZSQURPM3cifQ.fivqJpti-Um8m38RMPWzkQ';
+var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/dark-v9',
+    center: [35.50, 33.89],
+    minZoom: 8,
+    zoom: 8
+});
+
+
+map.on('load', function() {
+
+    // Add a new source from our GeoJSON data and set the
+    // 'cluster' option to true.
+    map.addSource("startups", {
+        type: "geojson",
+        // Point to GeoJSON data. This example visualizes all startups
+        data: "f1.geojson",
+        cluster: true,
+        clusterMaxZoom: 15, // Max zoom to cluster points on
+        clusterRadius: 20 // Use small cluster radius for the heatmap look
+    });
+
+    // Use the startups source to create four layers:
+
+    // Each point range gets a different fill color. Can change colors and clustor volume.
+    var layers = [
+        [0, '#42A5F5'],
+        [20, '#2196F3'],
+        [50, '#1565C0'],
+        [200, '#0D47A1']
+    ];
+
+    layers.forEach(function (layer, i) {
+        map.addLayer({
+            "id": "cluster-" + i,
+            "type": "circle",
+            "source": "startups",
+            "paint": {
+                "circle-color": layer[1],
+                "circle-radius": 50,
+                "circle-blur": 1// blur the circles to get a heatmap look
+            },
+            "filter": i === layers.length - 1 ?
+                [">=", "point_count", layer[0]] :
+                ["all",
+                    [">=", "point_count", layer[0]],
+                    ["<", "point_count", layers[i + 1][0]]]
+        }, 'waterway-label');
+    });
+
+    map.addLayer({
+        "id": "unclustered-points",
+        "type": "circle",
+        "source": "startups",
+        "paint": {
+            "circle-color": 'rgba(66,165,245,0.5)',
+            "circle-radius": 10,
+            "circle-blur": 0.5
+        },
+        "filter": ["!=", "cluster", true]
+    }, 'waterway-label');
+});
+</script>
+
+</body>
+</html>
