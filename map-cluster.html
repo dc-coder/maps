@@ -44,11 +44,12 @@ L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v10').addTo(map);
 
 function eachLayer(layer) {
     var feature = layer.toGeoJSON();
-    if (feature.properties && feature.properties.label) {
-        layer.bindPopup("label - " + feature.properties.label);
+    console.log(feature.geometry);
+    if (feature.properties && feature.geometry.coordinates) {
+        layer.bindPopup("coo0 - " + feature.geometry.coordinates[0] + " coo1: " + feature.geometry.coordinates[1]);
     }
 }
-var points = omnivore.csv('map-cluster-data.csv', {
+var points = omnivore.csv('places2.csv', {
     icon: L.mapbox.marker.icon({
         'marker-symbol': 'airport',
         'marker-color': '59245f'
