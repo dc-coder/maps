@@ -8,12 +8,14 @@ We've agreed that for webpage loading speeds, it is better to create country spe
 
 The csv has lebanon only data and rows where geolocation is not empty. (which cuts down the size of file by a lot)
 
+An alternative data source is mysql with specific queries. It can then be use for specific countries or show for example events worldwide and their attendence or where most acceleration/incubation happens.
 
 ## To do
 
 - Add an interactive chart that shows statistics about the markers in view - what charts could we use?
 - Decide if marker data can be confidential - based on that see if any data about single markers is shown
 - Add an interaction or data summary when a single cluster is selected
+- Some code are country specific, like clicking on name of region and showing markers for it - this needs to be more abstract and general.
 
 
 ## Preview
