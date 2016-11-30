@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Lebanon Map</title>
+	<meta charset="utf-8">
+	<meta content="IE=edge" http-equiv="X-UA-Compatible">
+	<meta content="width=device-width, initial-scale=1" name="viewport">
+	<title>Mapping ecosystems</title>
+
+
+	<!-- the obligatory bootstrap and jquery-->
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<script src="//code.jquery.com/jquery.js">
+	</script>
+
+	<!-- fonts and icons -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700|Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+
+	<!--mapbox-->
+	<script src='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.js'>
+	</script>
+	<link href='https://api.mapbox.com/mapbox.js/v2.4.0/mapbox.css' rel='stylesheet'>
+
+	<!--cluster plugin for mapbox-->
+	<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/leaflet.markercluster.js'>
+	</script>
+	<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.css' rel='stylesheet'>
+	<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v0.4.0/MarkerCluster.Default.css' rel='stylesheet'>
+
+	<!--display data from csv-->
+	<script src='//api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.0.1/leaflet-omnivore.min.js'>
+	</script>
+
+
+	<link href="css/style.css" rel="stylesheet"><!-- Latest compiled and minified JS -->
+
+
+</head>
+<body>
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<h1>Map</h1>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+			</div>
+			<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+				<div id='map-lebanon'></div>
+			</div>
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<ul class="list-inline" id="country-section">
+					<li><!-- Accent-colored raised button with ripple -->
+					 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="all-lebanon">All Lebanon</button></li>
+					<li><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="beirut">Beirut</button></li>
+					<li><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="mount-lebanon">Mount Lebanon</button></li>
+					<li><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">North</button></li>
+					<li><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">South</button></li>
+					<li><button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent">Bekaa</button></li>
+				</ul>
+				<h5>Enterpreneurial activies include:</h5>
+				<form class="form-group" id='filters' name="filters">
+					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-1"><input checked class="mdl-checkbox__input" id="checkbox-1" name='filters' type='checkbox' value='mentored'> Mentorship</label> 
+					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-2"><input checked class="mdl-checkbox__input" id="checkbox-2" name='filters' type='checkbox' value='knows'> Networking</label> 
+					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-3"><input checked class="mdl-checkbox__input" id="checkbox-3" name='filters' type='checkbox' value='founded'> Startup</label> 
+					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-4"><input checked class="mdl-checkbox__input" id="checkbox-4" name='filters' type='checkbox' value='studied at'> Study</label> 
+					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-5"><input checked class="mdl-checkbox__input" id="checkbox-5" name='filters' type='checkbox' value='hosted'> Hosting</label> 
+					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-6"><input checked class="mdl-checkbox__input" id="checkbox-6" name='filters' type='checkbox' value='worked at'> Work</label> 
+					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-7"><input checked class="mdl-checkbox__input" id="checkbox-7" name='filters' type='checkbox' value='member of'> Membership</label> 
+					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-8"><input checked class="mdl-checkbox__input" id="checkbox-8" name='filters' type='checkbox' value='attended in'> Events</label> 
+					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-9"><input checked class="mdl-checkbox__input" id="checkbox-9" name='filters' type='checkbox' value='accelerated/incubated'> Acceleration/incubation</label> 
+					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-10"><input checked class="mdl-checkbox__input" id="checkbox-10" name='filters' type='checkbox' value='inspired'> Inspiration</label> 
+					<label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="checkbox-11"><input checked class="mdl-checkbox__input" id="checkbox-11" name='filters' type='checkbox' value='acquired'> Acquisition</label>
+				</form><!-- Colored FAB button with ripple -->
+				 <button class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"><i class="material-icons">add your company</i></button> <label>add your company</label>
+			</div><!-- end  col-4 -->
+		</div><!-- end row-->
+	</div><!-- end container -->
+	<script src="js/lebanon.js">
+	</script>
+</body>
+</html>
