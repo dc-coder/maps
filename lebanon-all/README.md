@@ -17,4 +17,7 @@ The csv has lebanon only data and rows where geolocation is not empty. (which cu
 
 
 ## Preview
+
+https://boostingecosystems.github.io/map/lebanon-all/
+
 <img width="800" alt="screen shot 2016-11-30 at 5 47 28 pm" src="https://cloud.githubusercontent.com/assets/521705/20774621/202359bc-b725-11e6-8475-e95109c6532d.png">
