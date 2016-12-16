@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    
+    <!-- Mapbox -->
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.28.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.28.0/mapbox-gl.css' rel='stylesheet' />
+    
+
+    <!--     Turf, the magical geospatial analysis for browsers -->   
+    <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/turf/v1.3.0/turf.min.js'></script>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+
+    <style>
+        #map { position:absolute; top:0; bottom:0; width:80%; }
+    </style>
+
+</head>
+
+<body>
+
+    <div id='map'></div>
+
+
+    <script>
+
+
+    //read geojson data
+    //place it on map
+    //create a grid inside a bounding box (hexbins)
+    //count markers in each grid cell (hexbin)
+    //save data in format for visualization
+
+
+    //get the map
+    mapboxgl.accessToken = 'pk.eyJ1IjoibWlyZWlsbGVyYWFkIiwiYSI6ImZSQURPM3cifQ.fivqJpti-Um8m38RMPWzkQ';
+
+    var hex = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/mapbox/streets-v9',
+        zoom: 2
+    });
+
+
+    //place the points or markers
+    //this step needs to be added in user interface where users can upload a csv file
+    var pts = (function () {
+        var json = null;
+        $.ajax({
+            'async': false,
+            'global': false,
+            'url': 'data.geojson',
+            'dataType': "json",
+            'success': function (data) {
+                json = data;
+            }
+        });
+        return json;
+    })(); 
+
+
+
+    //set the bouding box, this step needs to be automatically generated from the map or set from UI.
+    var bbox = [   -74.08493041992186,  40.522150985623796,    -73.817138671875,   40.85744791303121];
+
+
+    //create the grid, the 0.002 defines how big each cell is.
+    var grid = turf.hex(bbox, 0.002);
+
+
+    //count markers in each grid cell, save as total variable.
+    var grid = turf.count(grid, pts, 'total');
+
+
+    //if we need to loop in the markers to set multiple variables, here is the loop method. 
+    // grid.features.forEach(function(cell) {
+
+    //     var total = cell.properties.total;
+
+    // });
+
+
+
+
+
+    (function(console){
+
+        console.save = function(data, filename){
+
+            if(!data) {
+                console.error('Console.save: No data')
+                return;
+            }
+
+            if(!filename) filename = 'console.json'
+
+                if(typeof data === "object"){
+                    data = JSON.stringify(data, undefined, 4)
+                }
+
+                var blob = new Blob([data], {type: 'text/json'}),
+                e    = document.createEvent('MouseEvents'),
+                a    = document.createElement('a')
+
+                a.download = filename
+                a.href = window.URL.createObjectURL(blob)
+                a.dataset.downloadurl =  ['text/json', a.download, a.href].join(':')
+                e.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null)
+                a.dispatchEvent(e)
+            }
+        })(console)
+
+
+        //lazy way to save the console log to a file.
+        console.save(JSON.stringify(grid), "grid.js");
+
+
+
+
+    </script>
+
+</body>
+</html>
