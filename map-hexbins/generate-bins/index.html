@@ -57,7 +57,7 @@
         $.ajax({
             'async': false,
             'global': false,
-            'url': 'beirut.geojson',
+            'url': 'data.geojson',
             'dataType': "json",
             'success': function (data) {
                 json = data;
@@ -88,15 +88,14 @@
     // });
 
 
- console.log (grid);
+ 
 
 // grid2 = $.grep(grid, function(el, idx) {return el.properties.total == "0"}, false)
 
-var returnedData = $.grep(grid.features, function (element, index) {
-    return element.properties.total == 0;
+var grid = $.grep(grid.features, function (element, index) {
+    return element.properties.total >   0;
 });
 
-console.log(returnedData);
 
 
     (function(console){
@@ -128,7 +127,7 @@ console.log(returnedData);
 
 
         //lazy way to save the console log to a file.
-     //   console.save(JSON.stringify(grid), "grid.js");
+        console.save(JSON.stringify(grid), "grid.js");
 
 
 
