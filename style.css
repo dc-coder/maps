@@ -1,0 +1,20 @@
+ #map {
+  
+    width: 70%;
+  	display: inline;
+    height: 800px;
+   float: left;
+   
+ }
+
+ .cities {
+ 	display: inline;
+    width: 30%;
+ 	float: left;
+    height: 800px;
+    
+ }
+
+ .text {
+ 	display: block;
+ }
