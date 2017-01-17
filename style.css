@@ -1,20 +1,70 @@
+ @import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+
+ body {
+ 	margin: 0;
+ 	padding: 0;
+  font-family: 'Montserrat', sans-serif;
+ }
+
+ a {
+  text-decoration: none;
+ }
+
+.cities {
+	float: right;
+	width: 20%;
+	 
+}
+
+.city {
+      position: relative;
+      height: 250px;
+      background-position: center;
+      margin-bottom: 2px;
+      color: white;
+ 
+}
+
  #map {
-  
-    width: 70%;
+    width: 80%;
   	display: inline;
-    height: 800px;
-   float: left;
-   
+    top:0;
+    bottom:30%;
+    float: left;
+    position: absolute;
  }
+ 
 
- .cities {
- 	display: inline;
-    width: 30%;
- 	float: left;
-    height: 800px;
-    
- }
+ 
+.text {
+    background-color: rgba(0,0,0, 0.4);
+    line-height: 250px;
+    text-align: center;
+    font-family: 'Montserrat' , sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
 
- .text {
- 	display: block;
- }
+}
+
+.desc {
+    position: absolute;
+    top: 70%;
+    padding: 10px;
+    width: 75%;
+}
+ 
+#year-display, .prev, .next {
+  width: 200px;
+  background-color: #ECEFF1;
+  text-align: center; 
+  display: inline;
+  float: left;
+  line-height: 35px;
+  vertical-align: middle;
+}
+
+ul#filters {
+  display: none;
+}
