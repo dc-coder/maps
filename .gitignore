@@ -1,3 +1,5 @@
 scratch/
 *.csv
 *.geojson
+data/*.csv
+data/*.geojson

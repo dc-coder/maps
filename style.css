@@ -1,3 +1,4 @@
+<<<<<<< HEAD
  @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
 
@@ -68,3 +69,25 @@
 ul#filters {
   display: none;
 }
+=======
+ #map {
+  
+    width: 70%;
+  	display: inline;
+    height: 800px;
+   float: left;
+   
+ }
+
+ .cities {
+ 	display: inline;
+    width: 30%;
+ 	float: left;
+    height: 800px;
+    
+ }
+
+ .text {
+ 	display: block;
+ }
+>>>>>>> 36231f5b64c0be23c801c53632232220f8e30a2f

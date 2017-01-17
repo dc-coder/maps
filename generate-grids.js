@@ -34,5 +34,4 @@ grid = turf.featurecollection(grid);
 console.log("- writing to json file"); 
 fs.writeFileSync( fname , JSON.stringify(grid));
 
-
 console.log('-----------');
