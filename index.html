@@ -1,342 +1,48 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <meta charset='utf-8' />
-  <title></title>
-  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-  <script src="vendor/mapbox-gl-js.js"></script>
-
-  <link href='vendor/mapbox-gl.css' rel='stylesheet' />
-
-
-  <script src="//code.jquery.com/jquery.js"></script>
-  <link rel=stylesheet href="style.css">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+    <meta charset='utf-8'>
+    <title>Map</title>
+    <meta content='initial-scale=1,maximum-scale=1,user-scalable=no' name='viewport'>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.31.0/mapbox-gl.js'>
+    </script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.31.0/mapbox-gl.css' rel='stylesheet'>
+    <script src="//code.jquery.com/jquery.js">
+    </script>
+    <link href="style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+
 <body>
 
-
-  <div class="wrapper">
-
+    <div id="map"> </div>
 
 
-    <div id ="map"></div>
+    <div class="cities"></div>
 
-    <div class="cities">
 
-      <div data="nyc" class="city active" loaded="1">
-        <div class="text">New York</div>
-      </div>
+    <ul class="hidden" id="filters"></ul>
 
-      <div data="beirut" class="city" loaded="0">
-       <div class="text">beirut</div>
-     </div>
 
-     <div data = "medellin" class="city"  loaded="0" >
-       <div class="text">medellin</div>
-     </div>
+    <div class="desc" id="map-summary">
+        
+        <div class="prev">
+            <a href="#"><i class="material-icons">arrow_backward</i></a>
+        </div>
 
-     <div data="bogota" class="city"  loaded="0" >
-      <div class="text">bogota</div>
+        <div id="year-display">
+            all
+        </div>
+
+        <div class="next">
+            <a href="#"><i class="material-icons">arrow_forward</i></a>
+        </div>
+
     </div>
 
-
-    <div data="daressalaam" class="city"  loaded="0">
-      <div class="text">daressalaam</div>
-    </div>
-
-
-
-  </div>
-
-
-
-
-
-</div>
-
-
-<div id="map-summary" class="desc">
-  <div id="map-total"></div>
-  
-   
-    
-     <div class = "prev">  
-        <a href="#"><i class="material-icons">arrow_backward</i>  </a>
-    </div>  
-    
-     <div id="year-display">all</div>
- 
-     <div class = "next">  
-       <a href="#"><i class="material-icons">arrow_forward</i>    </a>
-    </div>
-   
-      
-    
-  
-    
-  </div>
-
- 
-  <ul  id='filters'>
-        <li   class="selected">all</li>
- </ul>
-
-<script>
-
-function getYears() {
-
-
-$.getJSON( "data/config.json", function( data ) {
-
-yr = data.filter( function(obj) { return  obj.name == $('.active').attr("data")  } );
-
-years = yr[0]["details"]["years"];
-years = years.split(',')
-
-
-console.log("yalla");
- $("ul#filters li").not(':first').remove();
-
-
-for (var a in years)
-{
-  yr =  years[a];
-
-  $("#filters").append("<li>" + yr  + "</li>");
-}
-
-});
-}
-
- 
-
-  $('.city').each(function( ) {
-    var city = $(this).attr("data");
-    $(this).css('background-image', 'url(img/' + city + '-dark.jpg)');
-
-  });
-
-
-  $(".city").click(function() {
-
-   var city = $(this).attr("data");
-   $(".city").removeClass("active");
-   $(this).addClass("active");     
-
-
-   switch (city) {
-    case 'nyc':
-    map.flyTo({
-     center: [
-     -73.993216 ,
-     40.746827  ]
-   });
-    break;
-    case 'beirut':
-    map.flyTo({
-     center: [
-     35.501629 ,
-     33.891704  ]
-   });
-    break;
-
-    case 'daressalaam':
-    map.flyTo({
-     center: [
-     39.273310 ,
-     -6.800028 ]
-   });
-    break;
-
-    case 'medellin':
-    map.flyTo({
-     center: [
-     -75.582318,
-     6.259800 ]
-   });
-    break;
-
-    case 'bogota':
-    map.flyTo({
-     center: [
-     -74.074825,
-     4.678338 ]
-   });
-    break;
-
-
-  }
-
-
-});
-
-
-
-
-  mapboxgl.accessToken = 'pk.eyJ1IjoibWlyZWlsbGVyYWFkIiwiYSI6ImZSQURPM3cifQ.fivqJpti-Um8m38RMPWzkQ';
-  var invisible;
-
-  var map = new mapboxgl.Map({
-    container: 'map',
-    style: 'mapbox://styles/mapbox/light-v9',
-    center: [-73.993216,40.746827],
-    zoom: 12,
-    pitch: 60
-  });
-
- //make invisible, if layout -> visibility is used, queryRenderedFeatures doesn't work (because it only gets the markers in "view", in other words, litterally visible... so opacity is a workaround)
-
- map.on('load', function() {
-
-  addCityData();
-  getYears() ;
-
-
-});
-
-
- map.on("render", function() {
-  if(map.loaded()) {
-
-       // invisible = map.addLayer({
-
-       //      'id':  'invisible'  ,
-       //      'type': 'circle' ,
-       //      'paint': {'circle-opacity': 0},
-       //      'source': {
-       //          'type': 'geojson',
-       //          'data': 'all.geojson'
-       //      }
-
-       //      });
-
-
-     }
-   });
-
-
-
-    // on click, load city data - add a check to see if data already loaded
-    $(".city").click(function(){
-
-      if ($(this).attr("loaded") == "0") {
-       addCityData();
-       $(this).attr("loaded" , "1");
-
-     }
-
-getYears() ;
-
-   });
-
-    
-
-    function addCityData () {
-
-      map.addLayer({
-        'id':  $('.active').attr("data")  ,
-        'type': 'fill-extrusion',
-        'source': {
-          'type': 'geojson',
-          'data': 'data/' + $('.active').attr("data") +  'all.json'
-        },
-        'paint': {
-          'fill-extrusion-color': {
-            'property': 'total',
-            'type': 'exponential',
-            'stops': [
-            [1, "#EC407A"],
-
-
-            [1500, "#4A148C"] 
-            ]
-          },
-          'fill-extrusion-height': {
-            'property': 'total',
-            'type': 'identity'  
-          } ,
-
-
-            // Make extrusions slightly opaque for see through
-            'fill-extrusion-opacity': 0.9
-          }
-
-        });
-
-    };
-
-
-    map.on('moveend', function() {
-
-       // var features = map.queryRenderedFeatures({layers:['invisible']});
-
-       //  var edges_num_connections = 0;
-
-       //  if (features) {
-
-       //     features.forEach(function(feature) {
-
-       //         if (feature.properties.edges_num_connections != "NULL") {
-       //          edges_num_connections += parseInt(feature.properties.edges_num_connections);
-
-       //      }
-
-       //  });     
-
-
-
-       // }
-
-     //  $("#map-total").text("num connections:" + edges_num_connections);
-
-   });
-
-
-
-
-  $(".next").click(function(){
-        var $toHighlight = $('.selected').next().length > 0 ? $('.selected').next() : $('ul#filters li').first();
-        $('.selected').removeClass('selected');
-        $toHighlight.addClass('selected');
-        selectedYear = $toHighlight.text().trim(); 
-        $("#year-display").text(selectedYear);
-        setYear( selectedYear )
-
-    });
-
-    $(".prev").click(function(){
-
-        var $toHighlight = $('.selected').prev().length > 0 ? $('.selected').prev() : $('ul#filters li').last();
-        $('.selected').removeClass('selected');
-        $toHighlight.addClass('selected');
-         selectedYear = $toHighlight.text().trim(); 
-        $("#year-display").text(selectedYear);
-        setYear( selectedYear )
-    });
-
-
-
- function setYear(yr){
-   
-
-
-    
-
-    
-
-
-      map.getSource(  $('.active').attr("data")).setData(  'data/' + $('.active').attr("data").trim() +  yr  +  '.json' );
-
-
- // map.setFilter('collisions', filterDay);
-};
-
-
-
-
-</script>
+    <script src="ui.js"></script>
 
 </body>
+
 </html>

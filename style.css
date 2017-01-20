@@ -1,93 +1,66 @@
-<<<<<<< HEAD
- @import url('https://fonts.googleapis.com/css?family=Montserrat');
-
-
- body {
- 	margin: 0;
- 	padding: 0;
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+body {
+  margin: 0;
+  padding: 0;
   font-family: 'Montserrat', sans-serif;
- }
-
- a {
+}
+a {
   text-decoration: none;
- }
+}
 
+.hidden {
+  display: none;
+}
+
+#map {
+  width: 80%;
+  display: inline;
+  top: 0;
+  bottom: 30%;
+  float: left;
+  position: absolute;
+  left: 200px;
+  width: 70%;
+  display: inline;
+  height: 800px;
+}
 .cities {
-	float: right;
-	width: 20%;
-	 
+  display: inline;
+  width: 200px;
+  float: left;
+  height: 800px;
 }
-
 .city {
-      position: relative;
-      height: 250px;
-      background-position: center;
-      margin-bottom: 2px;
-      color: white;
- 
+  position: relative;
+  height: 200px;
+  width: 200px;
+  background-position: center;
+  margin-bottom: 2px;
+  color: white;
 }
-
- #map {
-    width: 80%;
-  	display: inline;
-    top:0;
-    bottom:30%;
-    float: left;
-    position: absolute;
- }
- 
-
- 
 .text {
-    background-color: rgba(0,0,0, 0.4);
-    line-height: 250px;
-    text-align: center;
-    font-family: 'Montserrat' , sans-serif;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: bold;
-
+  background-color: rgba(0, 0, 0, 0.3);
+  line-height: 200px;
+  text-align: center;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  display: block;
 }
-
 .desc {
-    position: absolute;
-    top: 70%;
-    padding: 10px;
-    width: 75%;
+  position: absolute;
+  top: 70%;
+  left: 200px;
+  width: 75%;
 }
- 
 #year-display, .prev, .next {
   width: 200px;
   background-color: #ECEFF1;
-  text-align: center; 
+  text-align: center;
   display: inline;
   float: left;
   line-height: 35px;
   vertical-align: middle;
 }
 
-ul#filters {
-  display: none;
-}
-=======
- #map {
-  
-    width: 70%;
-  	display: inline;
-    height: 800px;
-   float: left;
-   
- }
-
- .cities {
- 	display: inline;
-    width: 30%;
- 	float: left;
-    height: 800px;
-    
- }
-
- .text {
- 	display: block;
- }
->>>>>>> 36231f5b64c0be23c801c53632232220f8e30a2f
