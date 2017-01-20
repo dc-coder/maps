@@ -13,34 +13,36 @@ a {
 }
 
 #map {
-  width: 80%;
-  display: inline;
-  top: 0;
-  bottom: 30%;
-  float: left;
   position: absolute;
-  left: 200px;
-  width: 70%;
-  display: inline;
-  height: 800px;
-}
-.cities {
-  display: inline;
-  width: 200px;
+  
+  top: 0;
+  left: 15%;
+  height: 100%;
+  width: 85%;
+  
   float: left;
-  height: 800px;
 }
+
+.cities {
+  
+  width: 15%;
+  height: 100%;
+
+  float: left;
+  
+}
+
 .city {
-  position: relative;
-  height: 200px;
-  width: 200px;
+  
+  width: 100%;
   background-position: center;
   margin-bottom: 2px;
   color: white;
 }
+
 .text {
   background-color: rgba(0, 0, 0, 0.3);
-  line-height: 200px;
+  line-height: 150px;
   text-align: center;
   font-family: 'Montserrat', sans-serif;
   text-transform: uppercase;
@@ -48,19 +50,62 @@ a {
   font-weight: bold;
   display: block;
 }
-.desc {
+ 
+#nav-side {
   position: absolute;
-  top: 70%;
-  left: 200px;
-  width: 75%;
+  left: calc(15% + 10px);
+  top: 10px;
+  background-color: rgba(236,239,241, 0.7);  
+  width: 20%; 
+  height: calc(100% - 50px); 
+  padding: 15px;
 }
-#year-display, .prev, .next {
-  width: 200px;
-  background-color: #ECEFF1;
-  text-align: center;
+
+
+#nav-side-year {
+  display: block;
+  height: 10%;
+}
+
+ .nav-side-year-display, .prev, .next {
+  width: 60px;
   display: inline;
   float: left;
-  line-height: 35px;
-  vertical-align: middle;
+   
 }
+
+ 
+.nav-side-desc {
+  display: block;
+  border-top: 1px solid;
+  text-align: justify;
+}
+
+.popup-text  {
+  padding: 20px;
+   font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  font-size: 16px;
+  text-align: center;
+  color: white;
+}
+
+.mapboxgl-popup-close-button {
+  font-size: 16px;
+  color:white;
+}
+
+div.mapboxgl-popup-tip   {
+  border-top-color: #000 !important;
+}
+
+.mapboxgl-popup-content {
+  border-radius: 0px;
+  background: #000;
+
+}
+
+
 
