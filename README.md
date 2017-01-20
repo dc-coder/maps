@@ -63,7 +63,8 @@ Showing the grid data and an invisible layer of markers. The invisible layer of 
 
 <!-- `minify-geojson -k "$f.geojson"`
  -->
- 
- ### To Do
- 
- A lot of things ;p
+
+### To Do
+
+A lot of things ;p
+
