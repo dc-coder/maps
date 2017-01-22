@@ -2,7 +2,7 @@
 $.getJSON("ui-settings.json", function(data) {
   $.each(data, function(key, val) {
     //add the li
-    $(".cities").append("<div class='city' id='city-" + key + "'> <div class='text'>" + val["name"] + "</div></div>");
+    $(".cities").append("<div class='city item' id='city-" + key + "'> <div class='text'>" + val["name"] + "</div></div>");
     //loop and add each attribute 
     $.each(val, function(attr) {
       //generate the custom attributes
@@ -17,7 +17,11 @@ $.getJSON("ui-settings.json", function(data) {
   $("ul#filters").html(years);
 });
 
-
+$('.infinite-carousel').infiniteCarousel({
+                itemsPerMove : 2,
+                duration : 500,
+                vertical : true
+});
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWlyZWlsbGVyYWFkIiwiYSI6ImZSQURPM3cifQ.fivqJpti-Um8m38RMPWzkQ';
 var map = new mapboxgl.Map({
@@ -226,7 +230,7 @@ $(".cities").on('click', ".city", function() {
 
 
 
-$(".next").click(function() {
+$(".next-year").click(function() {
 
   var $toHighlight = $('.selected').next().length > 0 ? $('.selected').next() : $('ul#filters li').first();
   $('.selected').removeClass('selected');
@@ -239,7 +243,7 @@ $(".next").click(function() {
 
 
 
-$(".prev").click(function() {
+$(".prev-year").click(function() {
   var $toHighlight = $('.selected').prev().length > 0 ? $('.selected').prev() : $('ul#filters li').last();
   $('.selected').removeClass('selected');
   $toHighlight.addClass('selected');

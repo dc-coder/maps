@@ -38,6 +38,7 @@ a {
   background-position: center;
   margin-bottom: 2px;
   color: white;
+  cursor: pointer; cursor: hand; 
 }
 
 .text {
@@ -53,9 +54,9 @@ a {
  
 #nav-side {
   position: absolute;
-  left: calc(15% + 10px);
+   right: 10px;
   top: 10px;
-  background-color: rgba(236,239,241, 0.7);  
+  background-color: rgba(236,239,241, 0.8);  
   width: 20%; 
   height: calc(100% - 50px); 
   padding: 15px;
@@ -67,12 +68,13 @@ a {
   height: 10%;
 }
 
- .nav-side-year-display, .prev, .next {
+ .nav-side-year-display, .prev-year, .next-year {
   width: 60px;
   display: inline;
   float: left;
    
 }
+
 
  
 .nav-side-desc {
@@ -83,8 +85,8 @@ a {
 
 .popup-text  {
   padding: 20px;
-   font-family: 'Montserrat', sans-serif;
-    text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+  text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: bold;
   font-size: 16px;
@@ -104,8 +106,37 @@ div.mapboxgl-popup-tip   {
 .mapboxgl-popup-content {
   border-radius: 0px;
   background: #000;
-
 }
 
+.infinite-carousel .list{
 
+    height:100%;
+    overflow:visible;
+}
+.infinite-carousel .viewport{
+    margin-top: 40px;
+ 
+  overflow:hidden;
+}
 
+.pre , .next {
+  position: absolute;
+   text-align: center;
+   color: #673AB7;
+  cursor: pointer; cursor: hand; 
+  background-color: white;
+  width: 15%;
+} 
+
+.pre {
+   top: 0;
+}
+
+.next {
+  bottom: 0;
+}
+
+.pre i , .next i {
+  font-size: 40px;
+  text-align: center;
+}
