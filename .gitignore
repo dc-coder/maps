@@ -1,8 +1,10 @@
 scratch/
 *.csv
 *.geojson
+*.json
 data/*.csv
 data/*.geojson
 data/
 node_modules/
 node_modules/*
+data

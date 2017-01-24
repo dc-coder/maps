@@ -39,7 +39,7 @@ map.on('load', function() {
 
   map.addSource("startups", {
     "type": "geojson",
-    'data': 'data/' + $('.active').attr("datafile-rootname") + 'all.json'
+    'data': 'data/hex/' + $('.active').attr("datafile-rootname") + 'all.json'
   });
 
   map.addLayer({
@@ -93,7 +93,7 @@ map.on('load', function() {
     'type': 'circle',
     "source": {
       "type": "geojson",
-      'data': 'data/' + $('.active').attr("datafile-rootname") + '-details.min.geojson' 
+      'data': 'data/details/' + $('.active').attr("datafile-rootname") + '-details.csv.min.geojson' 
       } ,
       "paint": {
         "circle-opacity" : 0
@@ -223,7 +223,8 @@ $(".cities").on('click', ".city", function() {
     center: JSON.parse('[' + $(this).attr("center") + ']')
   });
   //set the source of the layer to new city data
-  map.getSource("startups").setData('data/' + $('.active').attr("datafile-rootname").trim() + 'all.json');
+  map.getSource("startups").setData('data/hex/' + $('.active').attr("datafile-rootname").trim() + 'all.json');
+  map.getSource("startups-details").setData('data/details/' + $('.active').attr("datafile-rootname").trim() + '-details.csv.min.geojson');
   years = '<li>' + $(this).attr("years").replace(/,/gi, '</li><li>') + '</li><';
   $("ul#filters").html(years);
 });
@@ -253,5 +254,7 @@ $(".prev-year").click(function() {
 });
 
 function setYear(yr) {
-  map.getSource("startups").setData('data/' + $('.active').attr("datafile-rootname").trim() + yr + '.json');
+  map.getSource("startups").setData('data/hex' + $('.active').attr("datafile-rootname").trim() + yr + '.json');
+  map.getSource("startups-details").setData('data/details/' + $('.active').attr("datafile-rootname").trim() + '-details.csv.min.geojson');
+
 };
