@@ -234,7 +234,7 @@ map.on('mousemove', function(e) {
 map.on('moveend', function() {   
 
   yr = $(".selected").text().trim();
-  setYear(yr);
+  setNavText(yr);
 
 
 
@@ -261,6 +261,7 @@ $(".cities").on('click', ".city", function() {
   map.getSource("startups-details").setData('data/details/' + $('.active').attr("datafile-rootname").trim() + '-details.csv.min.geojson');
   years = '<li>' + $(this).attr("years").replace(/,/gi, '</li><li>') + '</li><';
   $("ul#filters").html(years);
+
 });
 
 
@@ -297,8 +298,15 @@ function setYear(yr) {
   
 
  
+
+
+};
+
+function setNavText(yr) {
+
+
   if (yr =="all"){
-     map.setFilter('startups-details', ['!=', 'm', 'blah']);
+     map.setFilter('startups-details', ['>', 'm', '0']);
   }else {
     map.setFilter('startups-details', ['==', 'm', yr]);
   }
@@ -332,5 +340,4 @@ function setYear(yr) {
   $(".nav-side-desc p").append(key.substr(0,1).toUpperCase() + key.substr(1) +  "<br> " +  value + "<br><br>"); 
 });
 
-
-};
+}
