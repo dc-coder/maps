@@ -3,7 +3,17 @@
 
 #### Export csv from MySQL
 
-Generate one file for every city, any mysql dump command would do.
+MySQL command:
+
+To generate hexes:
+
+    1- `select  * from map where map_city='xxxx'`
+    2- save output to data/hex as cityname.csv
+
+To generate the details of each data (invisible layer)
+
+    1- `select min_year, map_city, places_longitude as longitude ,places_latitude as latitude ,edges_label from map where  map_city = 'xxx'`
+    2-  save output to data/details as cityname-details.csv
 
 
 #### csv to geojson to hexgrids
@@ -45,13 +55,17 @@ Generate one file for every city, any mysql dump command would do.
   
 #### Grid to map
 
-Using mapbox gl js for 3d features.
+Steps to show data on the map include:
 
-Showing the grid data and an invisible layer of markers. The invisible layer of markers has the data that shows on clicking and panning.
-
+- Using mapbox gl js for 3d extrusion features.
+- Adding an invisible layer of markers that has all the points. It is used to summarize what the reader sees. This layer is added after everything else has loaded.
+- Using a cheat.js script to get increase the height of data * 3 - there are 2 values generated:
+    - total: the actual total that we use for counting and display in marker popup.
+    - total_vis: the total used for visualizing and for the extrusion heights.
 
 #### How it works
 
+##### STEP 1
 - csv2geojson by mapbox is used to transform csv to  geojson data.
 - minify-geojson is used to compress the geojson output
 - turfjs is used to:
@@ -61,6 +75,12 @@ Showing the grid data and an invisible layer of markers. The invisible layer of 
 - grep-from-array is used to remove hexgrids where we have no points (makes data size smaller)
 - save to json file 
 
+##### STEP 2
+- read the config file, get all the years in each city
+- subset data in each city per year and regnerate using STEP 1.
+
+##### STEP 3
+- read all the csv in "details", generate a geojson for invisible layer.
 
 <!-- `minify-geojson -k "$f.geojson"`
  -->

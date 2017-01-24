@@ -6,7 +6,7 @@ var fs = require('fs');
 var param =  process.argv[2];
 
 //read the config file
-var yr = fs.readFileSync("config.json");
+var yr = fs.readFileSync("../config.json");
 yr = JSON.parse(yr);
 
 //filter by parameter name minus .csv

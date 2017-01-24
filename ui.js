@@ -15,20 +15,21 @@ $.getJSON("ui-settings.json", function(data) {
   $("[loaded=1]").addClass("active");
   years = '<li>' + $("[loaded=1]").attr("years").replace(/,/gi, '</li><li>') + '</li><';
   $("ul#filters").html(years);
+  $("ul#filters li:last-child").addClass("selected");
 });
 
 $('.infinite-carousel').infiniteCarousel({
-                itemsPerMove : 2,
-                duration : 500,
-                vertical : true
+  itemsPerMove : 2,
+  duration : 500,
+  vertical : true
 });
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWlyZWlsbGVyYWFkIiwiYSI6ImZSQURPM3cifQ.fivqJpti-Um8m38RMPWzkQ';
 var map = new mapboxgl.Map({
   container: 'map',
-  style: 'mapbox://styles/mapbox/light-v9',
-  center: [-73.993216, 40.746827],
-  zoom: 12,
+  style: 'mapbox://styles/mapbox/dark-v9',
+  center: [-73.93951177597046,40.72475450489242],
+  zoom: 11.5,
   pitch: 60
 });
 
@@ -39,7 +40,7 @@ map.on('load', function() {
 
   map.addSource("startups", {
     "type": "geojson",
-    'data': 'data/' + $('.active').attr("datafile-rootname") + 'all.json'
+    'data': 'data/hex/' + $('.active').attr("datafile-rootname") + 'all.json'
   });
 
   map.addLayer({
@@ -51,31 +52,8 @@ map.on('load', function() {
         'property': 'total_vis',
         'type': 'exponential',
         'stops': [
-          [1, "#EC407A"],
-          [1500, "#4A148C"]
-        ]
-      },
-      'fill-extrusion-height': {
-        'property': 'total_vis',
-        'type': 'identity'
-      },
-      // Make extrusions slightly opaque for see through
-      'fill-extrusion-opacity': 0.85
-    }
-  });
-
-
-  map.addLayer({
-    'id': 'startups-fill-hover',
-    'type': 'fill-extrusion',
-    'source': 'startups',
-    'paint': {
-      'fill-extrusion-color': {
-        'property': 'total_vis',
-        'type': 'exponential',
-        'stops': [
-          [1, "#EC407A"],
-          [1500, "#4A148C"]
+        [1, "#EC407A"],
+        [2500, "#4A148C"]
         ]
       },
       'fill-extrusion-height': {
@@ -84,41 +62,76 @@ map.on('load', function() {
       },
       // Make extrusions slightly opaque for see through
       'fill-extrusion-opacity': 0.9
-    },
-    "filter": ["==", "total_vis", ""]
+    }
   });
 
-   map.addLayer({
+
+  // map.addLayer({
+  //   'id': 'startups-fill-hover',
+  //   'type': 'fill-extrusion',
+  //   'source': 'startups',
+  //   'paint': {
+  //     'fill-extrusion-color': {
+  //       'property': 'total_vis',
+  //       'type': 'exponential',
+  //       'stops': [
+  //         [1, "#EC407A"],
+  //         [1500, "#4A148C"]
+  //       ]
+  //     },
+  //     'fill-extrusion-height': {
+  //       'property': 'total_vis',
+  //       'type': 'identity'
+  //     },
+  //     // Make extrusions slightly opaque for see through
+  //     'fill-extrusion-opacity': 0.9
+  //   },
+  //   "filter": ["==", "total_vis", ""]
+  // });
+
+  map.addLayer({
     "id": "startups-details", 
     'type': 'circle',
     "source": {
       "type": "geojson",
-      'data': 'data/' + $('.active').attr("datafile-rootname") + '-details.min.geojson' 
-      } ,
-      "paint": {
-        "circle-opacity" : 0
-      }
+      'data': 'data/details/' + $('.active').attr("datafile-rootname") + '-details.csv.min.geojson' 
+    } ,
+    "paint": {
+      "circle-opacity" : 0
+    }
   });
 
 
 });
 
+var popup = new mapboxgl.Popup({
+  closeButton: false,
+  closeOnClick: false
+});
+
 // When a click event occurs near a polygon, open a popup at the location of
 // the feature, with description HTML from its properties.
-map.on('click', function(e) {
+map.on('mousemove', function(e) {
 
   if (!map.loaded()) return;
 
   var features = map.queryRenderedFeatures(e.point, {
     layers: ['startups-fill']
   });
+
+  map.getCanvas().style.cursor = (features.length) ? 'pointer' : '';
+
+
   if (!features.length) {
-    return;
-  }
+   popup.remove();
+   return;
+ }
+ 
 
-  var feature = features[0];
 
-  var markerHeight = feature.properties.total_vis, markerRadius = 10, linearOffset = 25;
+ var feature = features[0];
+
+ var markerHeight = feature.properties.total_vis, markerRadius = 10, linearOffset = 25;
  
   // I need to fix the offsets of the popup... so each one shows based on where the marker height is
   // Also need to close the marker when navigating the year or moving on the map.
@@ -137,10 +150,9 @@ map.on('click', function(e) {
 
 
 
-  var popup = new mapboxgl.Popup();
 
   popup.setLngLat(map.unproject(e.point));
-  popup.setHTML("<div class='popup-text'>startup activity<br> <br>" + feature.properties.total + "</div>");
+  popup.setHTML("<div class='popup-text'>startup activity<br>" + feature.properties.total + "</div>");
   popup.addTo(map);
 
 
@@ -148,71 +160,93 @@ map.on('click', function(e) {
 
 // Use the same approach as above to indicate that the symbols are clickable
 // by changing the cursor style to 'pointer'.
-map.on("mousemove", function(e) {
+// map.on("mousemove", function(e) {
 
-  if (!map.loaded()) return;
+//   if (!map.loaded()) return;
 
-  var features = map.queryRenderedFeatures(e.point, {
-    layers: ["startups-fill"]
-  });
-  if (features.length) {
-    map.setFilter("startups-fill-hover", ["==", "total_vis", features[0].properties.total_vis]);
-  } else {
-    map.setFilter("startups-fill-hover", ["==", "total_vis", ""]);
-  }
+//   // var features = map.queryRenderedFeatures(e.point, {
+//   //   layers: ["startups-fill"]
+//   // });
+//   // if (features.length) {
+//   //   map.setFilter("startups-fill-hover", ["==", "total_vis", features[0].properties.total_vis]);
+//   // } else {
+//   //   map.setFilter("startups-fill-hover", ["==", "total_vis", ""]);
+//   // }
 
-});
+// });
 
 
 // Reset the state-fills-hover layer's filter when the mouse leaves the map
-map.on("mouseout", function() {
+// map.on("mouseout", function() {
 
-  if (!map.loaded()) return;
-  map.setFilter("startups-fill-hover", ["==", "total_vis", ""]);
+//   if (!map.loaded()) return;
+//   map.setFilter("startups-fill-hover", ["==", "total_vis", ""]);
 
-});
+// });
 
 
- 
- map.on('moveend', function() {   
-    
+// var datapoints = [];
 
-      var features = map.queryRenderedFeatures({layers:['startups-details']});   
-   
-       if (features) { 
+// var filterEl = document.getElementsByClassName('selected');
+// var listingEl = document.getElementsByClassName('nav-side-desc p');
+//  var obj = { };
 
-         var obj = { };
+// function renderListings(features) {
+//     // Clear any existing listings
+//     listingEl.innerHTML = '';
+//     if (features.length) {
+//         features.forEach(function(feature) {
+//             obj[feature.properties.e] = (obj[feature.properties.e] || 0) + 1; 
+//             $.each( obj, function( key, value ) {
+//              item = key.substr(0,1).toUpperCase() + key.substr(1) +  "<br> " +  value + "<br><br>";
+//             });
 
+//             $(".nav-side-desc p").html(item);
+//         });
+
+        
+//     } else {
        
-          features.forEach(function(feature) {    
-          // console.log(feature.properties.e);
+//         // remove features filter
+//          map.setFilter('startups-details', ['==', 'm', yr]);
+//     }
+// }
+
+
+//   map.on('moveend', function() {
+//         var features = map.queryRenderedFeatures({layers:['startups-details']});
+
+//         if (features) {
+           
+//             // Populate features for the listing overlay.
+//             renderListings(features);
+
+//             // Clear the input container
+//             filterEl.value = '';
+
              
-             obj[feature.properties.e] = (obj[feature.properties.e] || 0) + 1;
- 
-    
-       });        
-  
-   
-}   
+//         }
+//     });
 
-     
-  $(".nav-side-desc p").html("");
 
-  $.each( obj, function( key, value ) {
-    $(".nav-side-desc p").append(key.substr(0,1).toUpperCase() + key.substr(1) +  "<br> " +  value + "<br><br>"); 
-  });
 
-  
-   
-   });    
- 
+
+map.on('moveend', function() {   
+
+  yr = $(".selected").text().trim();
+  setYear(yr);
+
+
+
+});    
+
 
 
 // map.on('source.loading', function (e) {
 //   console.log(e.status); // one of 'fetching', 'idle', 'errored'
 // });
- 
- 
+
+
 
 $(".cities").on('click', ".city", function() {
   //change which city is active
@@ -223,7 +257,8 @@ $(".cities").on('click', ".city", function() {
     center: JSON.parse('[' + $(this).attr("center") + ']')
   });
   //set the source of the layer to new city data
-  map.getSource("startups").setData('data/' + $('.active').attr("datafile-rootname").trim() + 'all.json');
+  map.getSource("startups").setData('data/hex/' + $('.active').attr("datafile-rootname").trim() + 'all.json');
+  map.getSource("startups-details").setData('data/details/' + $('.active').attr("datafile-rootname").trim() + '-details.csv.min.geojson');
   years = '<li>' + $(this).attr("years").replace(/,/gi, '</li><li>') + '</li><';
   $("ul#filters").html(years);
 });
@@ -238,7 +273,8 @@ $(".next-year").click(function() {
   selectedYear = $toHighlight.text().trim();
 
   $(".nav-side-year-display").html(selectedYear);
-  setYear(selectedYear)
+  setYear(selectedYear);
+
 });
 
 
@@ -249,9 +285,52 @@ $(".prev-year").click(function() {
   $toHighlight.addClass('selected');
   selectedYear = $toHighlight.text().trim();
   $(".nav-side-year-display").text(selectedYear);
-  setYear(selectedYear)
+  setYear(selectedYear);
 });
 
 function setYear(yr) {
-  map.getSource("startups").setData('data/' + $('.active').attr("datafile-rootname").trim() + yr + '.json');
+
+
+
+  map.getSource("startups").setData('data/hex/' + $('.active').attr("datafile-rootname").trim() + yr + '.json');
+  map.getSource("startups-details").setData('data/details/' + $('.active').attr("datafile-rootname").trim() + '-details.csv.min.geojson');
+  
+
+ 
+  if (yr =="all"){
+     map.setFilter('startups-details', ['!=', 'm', 'blah']);
+  }else {
+    map.setFilter('startups-details', ['==', 'm', yr]);
+  }
+  
+ 
+
+ var obj = { };
+
+  var features = map.queryRenderedFeatures({layers:['startups-details']});   
+
+  if (features) { 
+
+   var obj = { };
+
+
+   features.forEach(function(feature) {    
+          // console.log(feature.properties.e);
+
+          obj[feature.properties.e] = (obj[feature.properties.e] || 0) + 1;
+
+
+        });        
+
+   
+ }   
+
+
+ $(".nav-side-desc p").html("");
+
+ $.each( obj, function( key, value ) {
+  $(".nav-side-desc p").append(key.substr(0,1).toUpperCase() + key.substr(1) +  "<br> " +  value + "<br><br>"); 
+});
+
+
 };

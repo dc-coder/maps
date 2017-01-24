@@ -13,7 +13,7 @@ json = JSON.parse(json);
   
     for( var k = 0;  k < json.features.length; ++k ) {
 
-          json.features[k].properties.total_vis = json.features[k].properties.total * 3  ;
+          json.features[k].properties.total_vis = json.features[k].properties.total * 2  ;
            
     }
     return json;
