@@ -7,7 +7,8 @@ Generate one file for every city, any mysql dump command would do.
 
 
 #### csv to geojson to hexgrids
-
+`npm install -g csv2geojson`
+`npm install -g minify-geojson`
 `npm install`
 
 `chmod u+x run.sh`

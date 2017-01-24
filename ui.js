@@ -48,7 +48,7 @@ map.on('load', function() {
     'source': 'startups',
     'paint': {
       'fill-extrusion-color': {
-        'property': 'total',
+        'property': 'total_vis',
         'type': 'exponential',
         'stops': [
           [1, "#EC407A"],
@@ -56,7 +56,7 @@ map.on('load', function() {
         ]
       },
       'fill-extrusion-height': {
-        'property': 'total',
+        'property': 'total_vis',
         'type': 'identity'
       },
       // Make extrusions slightly opaque for see through
@@ -71,7 +71,7 @@ map.on('load', function() {
     'source': 'startups',
     'paint': {
       'fill-extrusion-color': {
-        'property': 'total',
+        'property': 'total_vis',
         'type': 'exponential',
         'stops': [
           [1, "#EC407A"],
@@ -79,13 +79,13 @@ map.on('load', function() {
         ]
       },
       'fill-extrusion-height': {
-        'property': 'total',
+        'property': 'total_vis',
         'type': 'identity'
       },
       // Make extrusions slightly opaque for see through
       'fill-extrusion-opacity': 0.9
     },
-    "filter": ["==", "total", ""]
+    "filter": ["==", "total_vis", ""]
   });
 
    map.addLayer({
@@ -118,7 +118,7 @@ map.on('click', function(e) {
 
   var feature = features[0];
 
-  var markerHeight = feature.properties.total, markerRadius = 10, linearOffset = 25;
+  var markerHeight = feature.properties.total_vis, markerRadius = 10, linearOffset = 25;
  
   // I need to fix the offsets of the popup... so each one shows based on where the marker height is
   // Also need to close the marker when navigating the year or moving on the map.
@@ -156,9 +156,9 @@ map.on("mousemove", function(e) {
     layers: ["startups-fill"]
   });
   if (features.length) {
-    map.setFilter("startups-fill-hover", ["==", "total", features[0].properties.total]);
+    map.setFilter("startups-fill-hover", ["==", "total_vis", features[0].properties.total_vis]);
   } else {
-    map.setFilter("startups-fill-hover", ["==", "total", ""]);
+    map.setFilter("startups-fill-hover", ["==", "total_vis", ""]);
   }
 
 });
@@ -168,7 +168,7 @@ map.on("mousemove", function(e) {
 map.on("mouseout", function() {
 
   if (!map.loaded()) return;
-  map.setFilter("startups-fill-hover", ["==", "total", ""]);
+  map.setFilter("startups-fill-hover", ["==", "total_vis", ""]);
 
 });
 

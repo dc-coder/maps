@@ -1,17 +1,27 @@
 var fs = require('fs');
 
+var param =  process.argv[2];
+
+var fname= param.split('.')[0] + ".json";  
+
+
+var json = fs.readFileSync(fname);
+
+json = JSON.parse(json);   
  
-var input = fs.readFileSync("data/beirut.json");
-input = JSON.parse(input);
+ function replaceByValue() {
+  
+    for( var k = 0;  k < json.features.length; ++k ) {
 
-console.log(input);
+          json.features[k].properties.total_vis = json.features[k].properties.total * 3  ;
+           
+    }
+    return json;
+  }
+ 
 
-var output = [];
+json = replaceByValue();
 
-for (var i = 0; i < input.length; i++) {
-    output.push({
-        total: input.total * 2
-    });
-}
+fs.writeFileSync( fname , JSON.stringify(json));
 
-console.log(output);
+ 

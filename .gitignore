@@ -3,3 +3,6 @@ scratch/
 *.geojson
 data/*.csv
 data/*.geojson
+data/
+node_modules/
+node_modules/*

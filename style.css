@@ -3,6 +3,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Montserrat', sans-serif;
+  overflow: hidden;
 }
 a {
   text-decoration: none;
@@ -111,12 +112,12 @@ div.mapboxgl-popup-tip   {
 .infinite-carousel .list{
 
     height:100%;
-    overflow:visible;
+    overflow:hidden !important;
 }
 .infinite-carousel .viewport{
     margin-top: 40px;
  
-  overflow:hidden;
+  overflow:hidden !important;
 }
 
 .pre , .next {

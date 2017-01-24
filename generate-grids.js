@@ -4,7 +4,7 @@ var fs = require('fs');
 
 var param =  process.argv[2];
 
-var fname= param.split('.')[0] + ".json"; 
+var fname= param.split('.')[0] + "all.json"; 
 
 console.log("- reading geojson");
 var input = fs.readFileSync(param);
@@ -32,6 +32,6 @@ grid = turf.featurecollection(grid);
  
 
 console.log("- writing to json file"); 
-fs.writeFileSync( fname , JSON.stringify(grid));
+fs.writeFileSync( fname  , JSON.stringify(grid));
 
 console.log('-----------');
