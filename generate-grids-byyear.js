@@ -2,19 +2,41 @@ var turf = require('turf');
 var grep = require('grep-from-array');
 var fs = require('fs');
 
+
+
+function removeValue(list, value, separator) {
+  separator = separator || ",";
+  var values = list.split(separator);
+  for(var i = 0 ; i < values.length ; i++) {
+    if(values[i] == value) {
+      values.splice(i, 1);
+      return values.join(separator);
+    }
+  }
+  return list;
+}
+
+
 //get the file name
 var param =  process.argv[2];
 
 //read the config file
-var yr = fs.readFileSync("../config.json");
+var yr = fs.readFileSync("../../ui-settings.json");
 yr = JSON.parse(yr);
 
 //filter by parameter name minus .csv
 yr = yr.filter( function(obj) { return  obj.name == param.split('.')[0] } );
 
-years = yr[0]["details"]["years"];
+ 
 
-var years = years.split(',')
+years = yr[0]["years"];
+
+
+years = removeValue(years, "all", ",");
+ 
+var years = years.split(',');
+
+ 
 
 for (var a in years)
 {
@@ -88,6 +110,9 @@ fs.writeFileSync( fname , JSON.stringify(grid));
 
 
 console.log('-----------');
+
+
+
 
 }
 

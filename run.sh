@@ -26,7 +26,9 @@ rm *.csv.min.geojson
 
 for f in *.json
 do
+	echo "$f";
 	node ../../cheat.js "$f"
+	node ../../percentage.js "$f"
 done
 
 cd ../..
