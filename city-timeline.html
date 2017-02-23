@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <title>Map</title>
+    <meta content='initial-scale=1,maximum-scale=1,user-scalable=no' name='viewport'>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.31.0/mapbox-gl.js'>
+    </script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.31.0/mapbox-gl.css' rel='stylesheet'>
+    <script src="//code.jquery.com/jquery.js">
+    </script>
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="style.css" rel="stylesheet">
+   
+</head>
+
+<body>
+    <div class="center-div">
+       <div class='cities list'></div>
+       <div id="map" > </div>
+
+       <div>
+         <i id="play-pause-year" class="material-icons">play_arrow</i>
+
+         <span class="caption">(click play to see change over the years)</span>
+         <div id="current-year"></div>
+       </div>
+    
+    </div>
+   
+
+     
+   
+    <!--     Hidden list used to navigate the years-->   
+    <ul class="hidden" id="filters"></ul>
+ 
+    <script src="ui.js"></script>
+
+</body>
+
+</html>
