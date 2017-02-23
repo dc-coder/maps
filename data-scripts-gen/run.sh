@@ -4,7 +4,7 @@
 
 shopt -s nullglob
 
-cd data/hex
+cd ../data/hex
 
 printf "====================================\n Converting the following files: \n==================================== \n"
 
@@ -27,8 +27,8 @@ rm *.csv.min.geojson
 for f in *.json
 do
 	echo "$f";
-	node ../../cheat.js "$f"
-	node ../../percentage.js "$f"
+	node ../../data-scripts-gen/cheat.js "$f"
+	node ../../data-scripts-gen/percentage.js "$f"
 done
 
 cd ../..
