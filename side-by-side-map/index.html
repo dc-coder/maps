@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.deep_purple-pink.min.css" />
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.32.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.css' type='text/css' />
+    <link rel=stylesheet href="style.css">
+</head>
+
+<body>
+
+    <div class="controls">
+        <label id="startup-city-selected">Startup City</label>
+        <!-- Right aligned menu below button -->
+        <button id="startup-city" class="mdl-button mdl-js-button mdl-button--icon">
+            <i class="material-icons">more_vert</i>
+        </button>
+       
+        <ul id="startup-city-list-items" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="startup-city">
+            <li class="mdl-menu__item">New York</li>
+            <li class="mdl-menu__item">Medelliìn</li>
+            <li class="mdl-menu__item">Bogota</li>
+        </ul>
+       
+        <label id="secondary-data-set-selected">COMPARE TO</label>
+        <!-- Right aligned menu below button -->
+        <button id="secondary-data-set" class="mdl-button mdl-js-button mdl-button--icon">
+            <i class="material-icons">more_vert</i>
+        </button>
+
+        <ul id="secondary-data-set-list" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="secondary-data-set">
+            
+            <li class="mdl-menu__item">Traffic</li>
+            <li class="mdl-menu__item">Population Density</li>
+        </ul>
+
+      
+       <label id="filter-selected">Filter by</label>
+        <!-- Right aligned menu below button -->
+        <button id="filter" class="mdl-button mdl-js-button mdl-button--icon">
+            <i class="material-icons">more_vert</i>
+        </button>
+       
+        <ul id="filter-list-items" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="filter">
+            <li class="mdl-menu__item">Accelerated</li>
+            <li class="mdl-menu__item">Hosted</li>
+            <li class="mdl-menu__item">Founded</li>
+            <li class="mdl-menu__item">Worked at</li>
+            <li class="mdl-menu__item">Attended</li>
+        </ul>
+       
+
+
+        <div class="opacity-control">
+
+            <div>
+                <label>Street view</label>
+
+                <label class="mdl-switch mdl-js-switch mdl-js-ripple-effect" for="switch-street-view">
+                  <input type="checkbox" id="switch-street-view" class="mdl-switch__input">
+                  <span class="mdl-switch__label"></span>
+                </label>
+            
+            </div>
+
+            <div>
+            <label>Opacity</label>
+            <!-- Slider with Starting Value -->
+            <input id="opacity-control" class="mdl-slider mdl-js-slider" type="range" min="30" max="100" value="100" tabindex="0">
+            </div>
+        </div>
+
+   <div class="caption">(toggle street view, click on startup map to see")</div>
+
+    </div>
+
+    <div id="street-view">
+        <div id="panorama"></div>
+    </div>
+    
+    <div id='other-data' class='map'></div>
+    <div id='startup-data' class='map'></div>
+
+
+     <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA__sKcjBT0mZYL-PtvmLDD11UWqqF4Z2M">
+    </script>
+    
+    <!-- Latest compiled and minified JS -->
+    <script src="//code.jquery.com/jquery.js"></script>
+    <script src="map.js"></script>
+    <script src="ui.js"></script>
+
+
+
+</body>
+
+</html>

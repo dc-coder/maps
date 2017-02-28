@@ -9,12 +9,8 @@
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
-    </style>
-</head>
-<body>
 
-<style>
-body {
+        body {
     overflow: hidden;
 }
 
@@ -32,7 +28,14 @@ body * {
     bottom: 0;
     width: 100%;
 }
-</style>
+
+
+    </style>
+</head>
+<body>
+
+
+ 
 <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.js'></script>
 <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.css' type='text/css' />
 
@@ -42,23 +45,59 @@ body * {
 mapboxgl.accessToken = 'pk.eyJ1IjoibWlyZWlsbGVyYWFkIiwiYSI6ImZSQURPM3cifQ.fivqJpti-Um8m38RMPWzkQ';
 var beforeMap = new mapboxgl.Map({
     container: 'before',
-    style: 'mapbox://styles/mireilleraad/cizigd4q9000q2sm97lu2lfqd',
+    style: 'mapbox://styles/mireilleraad/cizhx7o7p000c2sm9e5qtlv8e',
     center: [-73.99283409118652, 40.75041060083396],
-    zoom: 11
+    zoom: 12 
 });
 
 var afterMap = new mapboxgl.Map({
     container: 'after',
-    style: 'mapbox://styles/mireilleraad/cizhx7o7p000c2sm9e5qtlv8e',
-    center:  [-73.99283409118652, 40.75041060083396],
-    zoom: 11
+    style: 'mapbox://styles/mireilleraad/cizigd4q9000q2sm97lu2lfqd',
+    center: [-73.99283409118652, 40.75041060083396],
+    zoom:12 
 });
 
 var map = new mapboxgl.Compare(beforeMap, afterMap, {
     // Set this to enable comparing two maps by mouse movement:
     // mousemove: true
+
+    
 });
- 
+
+
+ afterMap.on('load', function () {
+
+    afterMap.addLayer({
+        'id': 'population',
+        'type': 'circle',
+        'source': {
+            type: 'vector',
+            url: 'mapbox://examples.8fgz4egr'
+        },
+        'source-layer': 'sf2010',
+        'paint': {
+            // make circles larger as the user zooms from z12 to z22
+            'circle-radius': {
+                'base': 1.75,
+                'stops': [[12, 2], [22, 180]]
+            },
+            // color circles by ethnicity, using data-driven styles
+            'circle-color': {
+                property: 'ethnicity',
+                type: 'categorical',
+                stops: [
+                    ['White', '#fbb03b'],
+                    ['Black', '#223b53'],
+                    ['Hispanic', '#e55e5e'],
+                    ['Asian', '#3bb2d0'],
+                    ['Other', '#ccc']]
+            }
+        }
+    });
+});
+
+
+
 
 </script>
 
