@@ -33,11 +33,53 @@ body * {
 }
 
 #panorama {
-    width: 300px;
-    height: 300px;
+    width: 50%;
+    height: 500px;
+    top: 10px;
+}
+
+.legend {
+    background-color: #fff;
+    bottom: 30px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.10);
+    padding: 10px;
+    position: absolute;
+    left: 10px;
+    z-index: 1;
+}
+
+.legend h5 , #filter-by-activity h5{
+    font-size: 0.9em ;
+    margin: 0 0 10px;
+    font-family: "Montserrat" , sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+}
+
+.legend div span {
+    display: inline-block;
+    height: 20px;
+    margin-right: 5px;
+    width: 50px;
 }
 
 
+#nyc-congestion {
+  display: none;
+}
+
+#filter-by-activity {
+    position: absolute;
+    bottom: 50px;
+    right: 10px;
+    background: #fff;
+    width: 250px;
+    padding:5px;
+    font-size: 12px;
+}
+
+  
 .controls {
     padding: 20px;
 }
@@ -48,6 +90,10 @@ body * {
     font-style: italic;
     color: #4c4c4c;
     letter-spacing: normal;
+}
+
+#startup-city-selected {
+  min-width: 200px;
 }
 
 #secondary-data-set-selected {
