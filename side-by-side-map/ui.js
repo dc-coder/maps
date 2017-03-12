@@ -56,7 +56,7 @@ $("#secondary-data-set-list .mdl-menu__item").click(function(){
 	$("#panorama").html("");
     $("#secondary-data-set-selected").text( set) ;
 
-    var le_style = ["mapbox://styles/mireilleraad/cizkf1gk7000p2smzpgrtd6x1" , "mapbox://styles/mapbox/satellite-streets-v9" ,"mapbox://styles/mireilleraad/cizowikhj005k2smyvk803813"]
+    var le_style = ["mapbox://styles/mireilleraad/cizkf1gk7000p2smzpgrtd6x1" , "mapbox://styles/mapbox/satellite-streets-v9" , "mapbox://styles/mireilleraad/cizxee66j00402ss1cdn5zu0q", "mapbox://styles/mireilleraad/cizowikhj005k2smyvk803813"]
 
     if (set =="Land Cover") {
     	beforeMap.setZoom(13);
@@ -71,7 +71,9 @@ $("#secondary-data-set-list .mdl-menu__item").click(function(){
 
 
 function changeLegend(city, compareto) {
- 
+    
+    console.log(city);
+    console.log(compareto);
 
 	if ( (city == "New York" || city =="Startup City") && compareto =="Population Density") {
 		$("#nyc-pop").show()
@@ -80,11 +82,18 @@ function changeLegend(city, compareto) {
 	}
 
 	if ( (city == "New York" || city =="Startup City") && compareto =="Congestion") {
-		$("#nyc-congestion").show()
+		$("#congestion").show()
+        $("#road-network").hide()
 	} else {
-		$("#nyc-congestion").hide()
+		$("#congestion").hide()
 	}
 
+    if ( compareto =="Road Network") {
+        $("#road-network").show()
+        $("#congestion").hide()
+    } else {
+        $("#road-network").hide()
+    }
 
 }
  

@@ -34,7 +34,8 @@
         </button>
         <ul id="secondary-data-set-list" class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="secondary-data-set">
             <li class="mdl-menu__item">Congestion</li>
-            <li class="mdl-menu__item">Land Cover</li>
+            <li class="mdl-menu__item">Satellite</li>
+            <li class="mdl-menu__item">Road Network</li>
             <li class="mdl-menu__item">Population Density</li>
         </ul>
         <label id="filter-selected">Filter by</label>
@@ -87,13 +88,23 @@
             <div><span style="background-color:#c51b8a"></span> 60K - 80K</div>
             <div><span style="background-color:#7a0177"></span> 80K - 110K</div>
         </div>
-        <div id="nyc-congestion">
+        <div id="congestion">
             <h5>Congestion</h5>
             <div><span style="background-color:#58C322"></span>Low</div>
             <div><span style="background-color:#F2B90D"></span>Moderate</div>
             <div><span style="background-color:#F2800D"></span>Heavy</div>
             <div><span style="background-color:#CC0000"></span>Severe</div>
         </div>
+
+        <div id="road-network">
+            <h5>Road Network</h5>
+            <div><span style="background-color:#f0027f"></span>Motorway & Trunk Road</div>
+            <div><span style="background-color:#386cb0"></span>Primary Road</div>
+            <div><span style="background-color:#ffff99"></span>Secondary and Tertiary Roads</div>
+            <div><span style="background-color:#7fc97f"></span>Pedestrian and Sidewalks</div>
+            <div><span style="background-color:#c0392b"></span>Airport</div>
+        </div>
+
     </div>
     <!-- <div>
         <form id='filter-by-activity'>

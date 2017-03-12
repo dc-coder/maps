@@ -28,6 +28,10 @@ body * {
     width: 100%;
 }
 
+.mapboxgl-compare .compare-swiper {
+    background-color: rgb(103,58,183);
+}
+
 #startup-data canvas {
     cursor: pointer;
 }
@@ -65,7 +69,7 @@ body * {
 }
 
 
-#nyc-congestion {
+#congestion, #road-network {
   display: none;
 }
 
