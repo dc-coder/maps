@@ -39,7 +39,7 @@ map.on('load', function() {
 
   map.addSource("startups", {
     "type": "geojson",
-    'data': 'data/hex/' + $('.active').attr("datafile-rootname") + 'all.json'
+    'data': '../data/hex/' + $('.active').attr("datafile-rootname") + 'all.json'
   });
 
   map.addLayer({
@@ -134,7 +134,7 @@ $(".cities").on('click', ".city", function() {
     center: JSON.parse('[' + $(this).attr("center") + ']')
   });
   //set the source of the layer to new city data
-  map.getSource("startups").setData('data/hex/' + $('.active').attr("datafile-rootname").trim() + 'all.json');
+  map.getSource("startups").setData('../data/hex/' + $('.active').attr("datafile-rootname").trim() + 'all.json');
   
   years = '<li>' + $(this).attr("years").replace(/,/gi, '</li><li>') + '</li><';
   $("ul#filters").html(years);
@@ -182,7 +182,7 @@ laInterval = setInterval(function(){
 function setYear(yr) {
  
 
-  map.getSource("startups").setData('data/hex/' + $('.active').attr("datafile-rootname").trim() + yr + '.json');
+  map.getSource("startups").setData('../data/hex/' + $('.active').attr("datafile-rootname").trim() + yr + '.json');
   
 
 };
