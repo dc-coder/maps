@@ -56,7 +56,7 @@ $("#secondary-data-set-list .mdl-menu__item").click(function(){
 	$("#panorama").html("");
     $("#secondary-data-set-selected").text( set) ;
 
-    var le_style = ["mapbox://styles/mireilleraad/cizkf1gk7000p2smzpgrtd6x1" , "mapbox://styles/mapbox/satellite-streets-v9" , "mapbox://styles/mireilleraad/cizxee66j00402ss1cdn5zu0q", "mapbox://styles/mireilleraad/cizowikhj005k2smyvk803813"]
+    var le_style = ["mapbox://styles/mireilleraad/cizkf1gk7000p2smzpgrtd6x1" , "mapbox://styles/mapbox/satellite-streets-v9" , "mapbox://styles/mireilleraad/cizxee66j00402ss1cdn5zu0q", "mapbox://styles/mireilleraad/cizowikhj005k2smyvk803813" , "mapbox://styles/mireilleraad/cj073aftd005k2rpof9o10pux"]
 
     if (set =="Land Cover") {
     	beforeMap.setZoom(13);
