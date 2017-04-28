@@ -22,7 +22,7 @@ $.getJSON("ui-settings.json", function(data) {
 });
 
  
-mapboxgl.accessToken = 'pk.eyJ1IjoibWlyZWlsbGVyYWFkIiwiYSI6ImZSQURPM3cifQ.fivqJpti-Um8m38RMPWzkQ';
+mapboxgl.accessToken = 'pk.eyJ1IjoibWlyZWlsbGUiLCJhIjoiY2oyMXhxeHEwMDAwODMzbWdmc2pkZzc2MCJ9.dnTlkXT6i4qEy7LygdIhfA';
 var map = new mapboxgl.Map({
   container: 'map',
   style: 'mapbox://styles/mapbox/dark-v9',
